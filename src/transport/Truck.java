@@ -1,8 +1,21 @@
 package transport;
-
 public class Truck extends Car implements Competing {
-	public Truck(String brand, String model, int engineCapacity) {
+
+	private LoadCapasity loadCapasity;
+	public Truck(String brand,
+				 String model,
+				 int engineCapacity,
+				 LoadCapasity loadCapasity) {
 		super(brand, model, engineCapacity);
+		this.loadCapasity = loadCapasity;
+	}
+
+	public LoadCapasity getLoadCapasity() {
+		return loadCapasity;
+	}
+
+	public void setLoadCapasity(LoadCapasity loadCapasity) {
+		this.loadCapasity = loadCapasity;
 	}
 
 	public void start(){
@@ -10,6 +23,17 @@ public class Truck extends Car implements Competing {
 	}
 	public void stop(){
 		System.out.println("Грузовик \"" + getBrand() + "\" (\"" +getModel() + "\") закончил движение");
+	}
+
+	@Override
+	public void printType() {
+		if (loadCapasity == null){
+			System.out.println("Данных по авто не достаточно");
+		}else{
+			String from = loadCapasity.getFrom() == 0D? "" : "от " + loadCapasity.getFrom();
+			String to = loadCapasity.getTo() == 0D? "" : " до " + loadCapasity.getTo();
+			System.out.println("Грузоподьемность: " + from + to);
+		}
 	}
 
 	@Override
