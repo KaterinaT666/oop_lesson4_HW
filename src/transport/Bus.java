@@ -1,12 +1,33 @@
 package transport;
+
+import transport.driver.CategoryD;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Bus extends Car implements Competing {
 	private Tonnage tonnage;
+	private CategoryD driver;
+	private Set<Mechanic<Bus>> mechanics;
 	public Bus(String brand,
 			   String model,
 			   int engineCapacity,
-			   Tonnage tonnage) {
+			   Tonnage tonnage,
+			   CategoryD driver,
+			   Mechanic<Bus>... mechanics) {
 		super(brand, model, engineCapacity);
 		this.tonnage = tonnage;
+		this.mechanics = new HashSet<>(Arrays.asList(mechanics));
+		setDriver(driver);
+	}
+
+	public void setDriver(CategoryD driver) {
+		this.driver = driver;
+	}
+
+	public Set<Mechanic<Bus>> getMechanics() {
+		return mechanics;
 	}
 
 	public Tonnage getTonnage() {
@@ -36,6 +57,17 @@ public class Bus extends Car implements Competing {
 	}
 
 	@Override
+	public boolean passDiagnostics() {
+		System.out.println("Автобус" + getBrand() + getModel() + ", в диагностике не нуждается.");
+		return true;
+	}
+
+	@Override
+	public void repair() {
+		System.out.println("Автобус " + getBrand() + getModel() + " отремонтирован.");
+	}
+
+	@Override
 	public void pitStop() {
 		System.out.println("Автобус прошел пит-стоп");
 	}
@@ -49,5 +81,12 @@ public class Bus extends Car implements Competing {
 	public int maxSpeed() {
 		return (int) (Math.random()*100);
 	}
+	public Set<?> mechanics(){
+		return getMechanics();
+	}
 
+	@Override
+	public String toString() {
+		return "Автобус с водителем: " + driver + "\n" + super.toString();
+	}
 }

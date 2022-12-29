@@ -6,13 +6,28 @@ public abstract class Driver <T extends Car>{
 	private String name;
 	private boolean license;
 	private int  experience;
+	private String typeOfRights;
 
 	public Driver(String name,
 				  boolean license,
-				  int experience) {
+				  int experience,
+				  String typeOfRights) {
 		this.name = name;
 		this.license = license;
 		this.experience = experience;
+		setTypeOfRights(typeOfRights);
+	}
+
+	public String getTypeOfRights() {
+		return typeOfRights;
+	}
+
+	public void setTypeOfRights(String typeOfRights) {
+		if (typeOfRights == null || typeOfRights.isEmpty()){
+			throw new RuntimeException(" Необходимо указать тип прав");
+		}else {
+			this.typeOfRights = typeOfRights;
+		}
 	}
 
 	public String getName() {
@@ -49,4 +64,16 @@ public abstract class Driver <T extends Car>{
 				+ car.getBrand()+" и будет участвовать в заезде.");
 	}
 
+	public void printInfoOfLicense(T car) {
+	}
+
+	@Override
+	public String toString() {
+		return "Driver{" +
+				"name='" + name + '\'' +
+				", license=" + license +
+				", experience=" + experience +
+				", typeOfRights='" + typeOfRights + '\'' +
+				'}';
+	}
 }

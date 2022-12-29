@@ -1,21 +1,40 @@
 package transport;
+import transport.driver.CategoryC;
+
+import java.util.*;
+
 public class Truck extends Car implements Competing {
 
 	private LoadCapasity loadCapasity;
+	private CategoryC driver;
+	private Set<Mechanic<Truck>> mechanics;
 	public Truck(String brand,
 				 String model,
 				 int engineCapacity,
-				 LoadCapasity loadCapasity) {
+				 LoadCapasity loadCapasity,
+				 CategoryC driver,
+				 Mechanic<Truck>... mechanics) {
 		super(brand, model, engineCapacity);
 		this.loadCapasity = loadCapasity;
+		this.mechanics = new HashSet<>(Arrays.asList(mechanics));
+		setDriver(driver);
 	}
 
-	public LoadCapasity getLoadCapasity() {
+	public void setDriver(CategoryC driver) {
+		this.driver = driver;
+	}
+
+	public LoadCapasity getLoadCapacity() {
 		return loadCapasity;
 	}
 
-	public void setLoadCapasity(LoadCapasity loadCapasity) {
+	public void setLoadCapacity(LoadCapasity loadCapasity) {
 		this.loadCapasity = loadCapasity;
+	}
+
+	@Override
+	public Set<?> mechanics() {
+		return mechanics();
 	}
 
 	public void start(){
@@ -37,6 +56,17 @@ public class Truck extends Car implements Competing {
 	}
 
 	@Override
+	public boolean passDiagnostics() {
+		System.out.println("Грузовик " + getBrand() + getModel() + ", прошел диагностику.");
+		return true;
+	}
+
+	@Override
+	public void repair() {
+		System.out.println("Грузовик " + getBrand() + getModel() + " отремонтирован.");
+	}
+
+	@Override
 	public void pitStop() {
 		System.out.println("Грузовик прошел пит-стоп");
 	}
@@ -50,4 +80,9 @@ public class Truck extends Car implements Competing {
 	public int maxSpeed() {
 		return (int) (Math.random()*120);
 	}
+	@Override
+	public String toString() {
+		return "Грузовик с водителем: " + driver + "\n" + super.toString();
+	}
+
 }

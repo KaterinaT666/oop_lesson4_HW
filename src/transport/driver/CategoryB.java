@@ -6,8 +6,9 @@ public class CategoryB extends Driver<PassengerCar> {
 
 	public CategoryB(String name,
 					 boolean license,
-					 int experience) {
-		super(name, license, experience);
+					 int experience,
+					 String typeOfRights) {
+		super(name, license, experience, typeOfRights);
 	}
 
 	@Override
@@ -23,6 +24,11 @@ public class CategoryB extends Driver<PassengerCar> {
 	@Override
 	public void refuel(PassengerCar Car) {
 		System.out.println("Водитель " +getName()+", заправляет автомобиль "+ Car.getBrand());
+	}
+
+	@Override
+	public String toString() {
+		return ("Водитель " +getName()+", " + " B");
 	}
 
 }

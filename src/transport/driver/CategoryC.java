@@ -6,8 +6,9 @@ public class CategoryC extends Driver<Truck> {
 
 	public CategoryC(String name,
 					 boolean license,
-					 int experience) {
-		super(name, license, experience);
+					 int experience,
+					 String typeOfRights) {
+		super(name, license, experience, typeOfRights);
 	}
 
 	@Override
@@ -24,5 +25,9 @@ public class CategoryC extends Driver<Truck> {
 	public void refuel(Truck Car) {
 		System.out.println("Водитель " +getName()+
 				", заправляет грузовик "+ Car.getBrand());
+	}
+	@Override
+	public String toString() {
+		return "C";
 	}
 }

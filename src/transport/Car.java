@@ -1,15 +1,25 @@
 package transport;
+
+import transport.driver.Driver;
+
+import java.util.*;
+
 public abstract class Car implements Competing {
 
 	private String brand;
 	private String model;
 	private int engineCapacity;
+	private List<Driver<?>> drivers;
+	private final Set<Sponsor> sponsors;
 
 	public Car(String brand, String model, int engineCapacity) {
 		setBrand(brand);
 		setModel(model);
 		setEngineCapacity(engineCapacity);
+		this.sponsors = new HashSet<>();
+		this.drivers = new ArrayList<>();
 	}
+
 	public String getBrand() {
 		return brand;
 	}
@@ -31,6 +41,29 @@ public abstract class Car implements Competing {
 		}
 		this.model = model;
 	}
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		List<Sponsor> sponsorList = new ArrayList<>(sponsors);
+		if (!sponsorList.isEmpty()) {
+			result.append("Спонсоры: ");
+		}
+			for (int i = 0; i< sponsorList.size(); i++){
+				result.append(sponsorList.get(i));
+				if (i != sponsorList.size() - 1){
+					result.append(", ");
+				}
+			}
+			return result.toString();
+	}
+
+	public List<Driver<?>> getDrivers() {
+		return drivers;
+	}
+
+	public Set<Sponsor> getSponsors() {
+		return sponsors;
+	}
 
 	public int getEngineCapacity() {
 		return engineCapacity;
@@ -42,7 +75,32 @@ public abstract class Car implements Competing {
 		}
 		this.engineCapacity = engineCapacity;
 	}
+	public void addDriver (Driver<?>... drivers){
+
+		this.drivers.addAll(Arrays.asList(drivers));
+	}
+	public void addSponsor (Sponsor sponsor){
+		sponsors.add(sponsor);
+	}
+	public abstract Set<?> mechanics();
+	public String mechanicsInfo(){
+		List<?> mechanics = new ArrayList<>(mechanics());
+		StringBuilder result = new StringBuilder();
+		if (!mechanics.isEmpty()){
+			result.append("Механики: ");
+		}
+		for (int i = 0; i< mechanics.size(); i++){
+			result.append(mechanics.get(i));
+			if (i != mechanics.size() - 1){
+				result.append(", ");
+			}
+		}
+		return result.append("\n").append(mechanicsInfo()).toString();
+	}
+
 	public abstract void start();
 	public abstract void stop();
 	public abstract void printType();
+	public abstract boolean passDiagnostics();
+	public abstract void repair();
 }
