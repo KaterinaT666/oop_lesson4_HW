@@ -2,6 +2,8 @@ package transport.driver;
 
 import transport.Car;
 
+import java.util.Objects;
+
 public abstract class Driver <T extends Car>{
 	private String name;
 	private boolean license;
@@ -65,6 +67,21 @@ public abstract class Driver <T extends Car>{
 	}
 
 	public void printInfoOfLicense(T car) {
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Driver<?> driver = (Driver<?>) o;
+		return isLicense() == driver.isLicense()
+				&& getName().equals(driver.getName())
+				&& getTypeOfRights().equals(driver.getTypeOfRights());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getName(), isLicense(), getTypeOfRights());
 	}
 
 	@Override

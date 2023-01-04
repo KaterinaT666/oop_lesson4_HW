@@ -11,7 +11,11 @@ public class Passport {
 	private String patronymicName;
 	private LocalDate localDate;
 
-	public Passport(String number, String name, String surname, String patronymicName, LocalDate localDate) {
+	public Passport(String number,
+					String name,
+					String surname,
+					String patronymicName,
+					LocalDate localDate) {
 		this.number = number;
 		this.name = name;
 		this.surname = surname;

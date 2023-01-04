@@ -9,7 +9,7 @@ public abstract class Car implements Competing {
 	private String brand;
 	private String model;
 	private int engineCapacity;
-	private List<Driver<?>> drivers;
+	private Set<Driver<?>> drivers;
 	private final Set<Sponsor> sponsors;
 
 	public Car(String brand, String model, int engineCapacity) {
@@ -17,7 +17,7 @@ public abstract class Car implements Competing {
 		setModel(model);
 		setEngineCapacity(engineCapacity);
 		this.sponsors = new HashSet<>();
-		this.drivers = new ArrayList<>();
+		this.drivers = new HashSet<>();
 	}
 
 	public String getBrand() {
@@ -57,7 +57,7 @@ public abstract class Car implements Competing {
 			return result.toString();
 	}
 
-	public List<Driver<?>> getDrivers() {
+	public Set<Driver<?>> getDrivers() {
 		return drivers;
 	}
 
@@ -78,6 +78,20 @@ public abstract class Car implements Competing {
 	public void addDriver (Driver<?>... drivers){
 
 		this.drivers.addAll(Arrays.asList(drivers));
+	}
+	public String driversInfo(){
+		List<?> drivers = new ArrayList<>(getDrivers());
+		StringBuilder result = new StringBuilder();
+		if (!drivers.isEmpty()){
+			result.append("Водитель: ");
+		}
+		for (int i = 0; i< drivers.size(); i++){
+			result.append(drivers.get(i));
+			if (i != drivers.size() - 1){
+				result.append(", ");
+			}
+		}
+		return result.append("\n").append(driversInfo()).toString();
 	}
 	public void addSponsor (Sponsor sponsor){
 		sponsors.add(sponsor);
